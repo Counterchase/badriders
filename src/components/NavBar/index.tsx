@@ -37,13 +37,19 @@ export default function NavBar() {
     };
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" sx={{
+            boxShadow:3,
+            borderRadius:2,
+            marginBottom:0.5,
+        }}>
+
+            {/*trocar por button navigation*/}
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Grid container spacing={2}>
                         <Grid item xs={4}>
                             <Box sx={{
-                                textAlign: 'center'
+                                textAlign: 'center',
                             }}>
                                 <IconButton
                                     href='/'
