@@ -1,4 +1,4 @@
-import {alpha, Container, Grid, InputBase, styled} from "@mui/material";
+import {alpha, Box, Container, Grid, InputBase, styled} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -80,6 +80,19 @@ export default function Members() {
                         Cadastrar Membro
                     </Button>
                 </Grid>
+            </Grid>
+            <Grid item spacing={2}>
+                <Box
+                    sx={{
+                        width: '100%',
+                        height: '100vh',
+                        boxShadow: 2,
+                        backgroundColor: 'primary.light',
+                        padding: 1,
+                    }}
+                >
+                    <CardMembers/>
+                </Box>
             </Grid>
         </Grid>
     )

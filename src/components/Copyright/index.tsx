@@ -8,7 +8,9 @@ export default function Copyright(props: any) {
                 position: 'fixed',
                 bottom: 0,
                 width: '100vw',
-                justifyContent: 'center',
+                left: '50vw',
+                marginLeft: '-50vw',
+
             }}
         >
             <Typography variant="body2" color="initial" align="center" {...props}>
