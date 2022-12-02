@@ -1,13 +1,28 @@
 import NavBar from './components/NavBar'
 import Copyright from './components/Copyright'
-import {Container, createTheme, CssBaseline, Grid, ThemeProvider} from "@mui/material";
+import {Container, createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from "./pages/Home";
 import Members from "./pages/Members";
 import Settings from "./pages/Settings";
 
 
-const theme = createTheme()
+const theme = createTheme({
+    palette: {
+        primary: {
+            light: '#757ce8',
+            main: '#3f50b5',
+            dark: '#002884',
+            contrastText: '#fff',
+        },
+        secondary: {
+            light: '#ff7961',
+            main: '#f44336',
+            dark: '#ba000d',
+            contrastText: '#000',
+        },
+    },
+});
 
 function App() {
     return (
