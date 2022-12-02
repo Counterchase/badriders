@@ -2,13 +2,16 @@ import {alpha, Container, Grid, InputBase, styled} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import CardMembers from "../components/CardMembers";
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    backgroundColor: alpha(theme.palette.common.white, 0.35),
     '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
+        backgroundColor: alpha(theme.palette.common.white, 0.65),
     },
     marginLeft: 0,
     width: '100%',
@@ -37,7 +40,7 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
         transition: theme.transitions.create('width'),
         width: '100%',
         [theme.breakpoints.up('sm')]: {
-            width: '12ch',
+            width: '70vw',
             '&:focus': {
                 width: '20ch',
             },
@@ -49,56 +52,35 @@ export default function Members() {
 //tela inicia com uma barra de pesquisa ao lado um botao de novo cadastro.
     // abaixo terá um modal de cards com os membros.   acessando o membro pode editar, apagar, e mudar estatus
     // dessa tela apenas novos cadastros, lsitagem e pesquisa.
+
     return (
-        <Container maxWidth="xl" sx={{
-            position: 'relative',
-            padding: '50px 25px 0 25px',
-            overflowY: 'hidden',
-            background: 'linear-gradient(180deg, #9400D3 0%, #FFF 100%)',
-            boxShadow: 3,
-            borderRadius: 2,
-        }}>
-            <Typography sx={{
-                fontWeight: 'bold',
-                fontSize: 'large',
-            }}>
-                Membros
-            </Typography>
-            <Grid container spacing={2} sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                marginBottom: 1,
-            }}>
-                <Grid item md={6}>
+        <Grid container spacing={2} flexDirection='column'>
+            <Grid item>
+                <Typography
+                    sx={{
+                        fontWeight: 'bold',
+                        color: '#fff',
+                        fontSize: 'large',
+                    }}
+                >
+                    Membros
+                </Typography>
+            </Grid>
+            <Grid item container spacing={2}>
+                <Grid item xs={12} md={6} lg={10}>
                     <Search>
                         <SearchIconWrapper>
                             <SearchIcon/>
                         </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="Pesquisar…"
-                            inputProps={{'aria-label': 'search'}}
-                        />
+                        <StyledInputBase/>
                     </Search>
                 </Grid>
-                <Grid item md={6}>
-                    <Button
-                        variant="contained"
-                    >
+                <Grid item xs={8} md={6} lg={2}>
+                    <Button variant='contained'>
                         Cadastrar Membro
                     </Button>
                 </Grid>
             </Grid>
-
-
-            {/*CONTAINER CARD MEMBROS*/}
-
-            <Grid container spacing={2} sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                marginY: 2,
-            }}>
-                Card Membros
-            </Grid>
-        </Container>
+        </Grid>
     )
 }
