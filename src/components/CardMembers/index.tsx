@@ -7,8 +7,13 @@ import BadgeIcon from '@mui/icons-material/Badge';
 import HomeIcon from '@mui/icons-material/Home';
 import VerifiedIcon from '@mui/icons-material/Verified';
 
+type CardProps = {
+    member: {
+        name: string,
+    }
+}
 
-export default function CardMember() {
+export default function CardMember({member}: CardProps) {
 
 
     return (

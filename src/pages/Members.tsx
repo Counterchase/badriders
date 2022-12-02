@@ -5,6 +5,9 @@ import Typography from "@mui/material/Typography";
 import CardMembers from "../components/CardMembers";
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import {useEffect, useState} from "react";
+import DataAcess from "../api/firebase.js"
+import {getDocs} from "firebase/firestore";
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -53,6 +56,17 @@ export default function Members() {
     // abaixo terá um modal de cards com os membros.   acessando o membro pode editar, apagar, e mudar estatus
     // dessa tela apenas novos cadastros, lsitagem e pesquisa.
 
+    const [members, setMembers] = useState([]);
+
+    useEffect(() => {
+        const getData = async () => {
+            setMembers(await DataAcess('members'))
+        }
+        getData();
+    }, [])
+    setMembers(await DataAcess('members'));
+
+
     return (
         <Grid container spacing={2} flexDirection='column'>
             <Grid item>
@@ -81,7 +95,7 @@ export default function Members() {
                     </Button>
                 </Grid>
             </Grid>
-            <Grid item spacing={2}>
+            <Grid item>
                 <Box
                     sx={{
                         width: '100%',
