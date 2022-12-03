@@ -4,6 +4,7 @@ import {Container, createTheme, CssBaseline, ThemeProvider} from "@mui/material"
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from "./pages/Home";
 import Members from "./pages/Members";
+import NewMember from "./pages/NewMember";
 import Settings from "./pages/Settings";
 
 
@@ -46,6 +47,7 @@ function App() {
                     <Routes>
                         <Route path='/' element={<Home/>}/>
                         <Route path='/members' element={<Members/>}/>
+                        <Route path='/members/new-member' element={<NewMember/>}/>
                         <Route path='/settings' element={<Settings/>}/>
                     </Routes>
                     <Copyright/>

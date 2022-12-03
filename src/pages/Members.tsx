@@ -1,4 +1,4 @@
-import {alpha, Container, Grid, InputBase, styled} from "@mui/material";
+import {alpha, Box, Container, Grid, ImageList, ImageListItem, InputBase, styled} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -61,11 +61,15 @@ export default function Members() {
         const getData = async () => {
             const data = await getDocs(dataCollectionRef);
             console.log("api log..")
-            console.log(data);
-            setMembers(data);
+            console.log(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+            setMembers(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
         };
         getData();
     }, [])
+
+    const handleMembersCad = () => {
+
+    }
 
     return (
         <Grid container spacing={2}>
@@ -81,7 +85,7 @@ export default function Members() {
                 </Typography>
             </Grid>
             <Grid item container spacing={2}>
-                <Grid item xs={12} md={6} lg={10}>
+                <Grid item xs={12} md={9} lg={10}>
                     <Search>
                         <SearchIconWrapper>
                             <SearchIcon/>
@@ -89,36 +93,34 @@ export default function Members() {
                         <StyledInputBase/>
                     </Search>
                 </Grid>
-                <Grid item xs={8} md={6} lg={2}>
-                    <Button variant='contained'>
+                <Grid item xs={8} md={3} lg={2}>
+                    <Button variant='contained' onClick={handleMembersCad} href={'/members/new-member'}>
                         Cadastrar Membro
                     </Button>
                 </Grid>
             </Grid>
-            <Grid item xs={8} md={6} lg={2} sx={{
-                position: 'relative',
-            }}>
-                <Container
-                    maxWidth='false'
+            <Container
+                maxWidth='xl'
+                sx={{
+                    mt: 2,
+                    backgroundColor: 'primary.main',
+                }}
+            >
+                <ImageList
                     sx={{
-                        padding: 3,
-                        backgroundColor: 'primary.main',
-                        width: '100vw',
-                        height: '100vh',
-                        justifyContent: 'space-around',
-                        position: 'absolute',
-                        display: 'flow',
-                    }}
-                >
-                    <Grid container spacing={2}>
-                        <CardMembers/>
-                        <CardMembers/>
-                        <CardMembers/>
-                        <CardMembers/>
-                        <CardMembers/>
-                    </Grid>
-                </Container>
-            </Grid>
+                        gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1Fr))!important',
+                    }}>
+                    {
+                        members.map(i => {
+                            return (
+                                <ImageListItem key={i.id}>
+                                    <CardMembers member={i}/>
+                                </ImageListItem>
+                            )
+                        })
+                    }
+                </ImageList>
+            </Container>
         </Grid>
     )
 }
