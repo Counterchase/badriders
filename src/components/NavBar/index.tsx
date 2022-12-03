@@ -4,11 +4,6 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import SportsMotorsportsIcon from '@mui/icons-material/SportsMotorsports';
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import Grid from "@mui/material/Grid";
-import {useEffect, useState} from "react";
-import Home from "../../pages/Home";
-import Members from "../../pages/Members";
-import Settings from "../../pages/Settings";
 
 export default function NavBar() {
     return (

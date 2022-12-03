@@ -1,13 +1,11 @@
-import {alpha, Box, Container, Grid, InputBase, styled} from "@mui/material";
+import {alpha, Container, Grid, InputBase, styled} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import CardMembers from "../components/CardMembers";
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
 import {useEffect, useState} from "react";
-import DataAcess from "../api/firebase.js"
-import {getDocs} from "firebase/firestore";
+import {collection, getDocs, getFirestore} from "firebase/firestore";
+import firebaseApp from "../api/firebase";
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -57,18 +55,20 @@ export default function Members() {
     // dessa tela apenas novos cadastros, lsitagem e pesquisa.
 
     const [members, setMembers] = useState([]);
-
+    const db = getFirestore(firebaseApp);
+    const dataCollectionRef = collection(db, 'members');
     useEffect(() => {
         const getData = async () => {
-            setMembers(await DataAcess('members'))
-        }
+            const data = await getDocs(dataCollectionRef);
+            console.log("api log..")
+            console.log(data);
+            setMembers(data);
+        };
         getData();
     }, [])
-    setMembers(await DataAcess('members'));
-
 
     return (
-        <Grid container spacing={2} flexDirection='column'>
+        <Grid container spacing={2}>
             <Grid item>
                 <Typography
                     sx={{
@@ -95,18 +95,29 @@ export default function Members() {
                     </Button>
                 </Grid>
             </Grid>
-            <Grid item>
-                <Box
+            <Grid item xs={8} md={6} lg={2} sx={{
+                position: 'relative',
+            }}>
+                <Container
+                    maxWidth='false'
                     sx={{
-                        width: '100%',
+                        padding: 3,
+                        backgroundColor: 'primary.main',
+                        width: '100vw',
                         height: '100vh',
-                        boxShadow: 2,
-                        backgroundColor: 'primary.light',
-                        padding: 1,
+                        justifyContent: 'space-around',
+                        position: 'absolute',
+                        display: 'flow',
                     }}
                 >
-                    <CardMembers/>
-                </Box>
+                    <Grid container spacing={2}>
+                        <CardMembers/>
+                        <CardMembers/>
+                        <CardMembers/>
+                        <CardMembers/>
+                        <CardMembers/>
+                    </Grid>
+                </Container>
             </Grid>
         </Grid>
     )

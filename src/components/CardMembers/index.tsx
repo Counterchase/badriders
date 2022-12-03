@@ -17,14 +17,17 @@ export default function CardMember({member}: CardProps) {
 
 
     return (
-        <Grid container spacing={2} sx={{
-            boxShadow: 2,
-            padding: 2,
-            textAlign: 'left',
-            alignItems: 'center',
+        <Grid item container spacing={2} xs={5}
+              sx={{
+                  boxShadow: 2,
+                  margin: 1,
+                  marginRight: 2,
+                  padding: 2,
+                  alignItems: 'center',
+                  backgroundColor: 'primary.light',
 
-        }}>
-            <Grid item xs={4} lg={2}>
+              }}>
+            <Grid item xs={2} lg={1}>
                 <Image>
                 </Image>
                 <Typography>
