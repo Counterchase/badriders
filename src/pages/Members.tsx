@@ -1,11 +1,26 @@
-import {alpha, Box, Container, Grid, ImageList, ImageListItem, InputBase, styled} from "@mui/material";
+import {
+    alpha,
+    Box,
+    Container,
+    Grid,
+    IconButton,
+    ImageList,
+    ImageListItem,
+    InputBase,
+    styled,
+    Tooltip
+} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import CircularProgress from '@mui/material/CircularProgress';
 import CardMembers from "../components/CardMembers";
 import {useEffect, useState} from "react";
-import {collection, getDocs, getFirestore} from "firebase/firestore";
+import {collection, getDocs, getFirestore, doc, deleteDoc} from "firebase/firestore";
 import firebaseApp from "../api/firebase";
+import EditIcon from "@mui/icons-material/Edit";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -53,7 +68,7 @@ export default function Members() {
 //tela inicia com uma barra de pesquisa ao lado um botao de novo cadastro.
     // abaixo terá um modal de cards com os membros.   acessando o membro pode editar, apagar, e mudar estatus
     // dessa tela apenas novos cadastros, lsitagem e pesquisa.
-
+    const [loader, setLoader] = useState(false);
     const [members, setMembers] = useState([]);
     const db = getFirestore(firebaseApp);
     const dataCollectionRef = collection(db, 'members');
@@ -67,9 +82,11 @@ export default function Members() {
         getData();
     }, [])
 
-    const handleMembersCad = () => {
-
+    async function deleteMember(id) {
+        const memberDoc = doc(db, "members", id);
+        await deleteDoc(memberDoc);
     }
+
 
     return (
         <Grid container spacing={2}>
@@ -94,7 +111,7 @@ export default function Members() {
                     </Search>
                 </Grid>
                 <Grid item xs={8} md={3} lg={2}>
-                    <Button variant='contained' onClick={handleMembersCad} href={'/members/new-member'}>
+                    <Button variant='contained' href={'/members/new-member'}>
                         Cadastrar Membro
                     </Button>
                 </Grid>
@@ -106,20 +123,56 @@ export default function Members() {
                     backgroundColor: 'primary.main',
                 }}
             >
-                <ImageList
-                    sx={{
-                        gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1Fr))!important',
-                    }}>
-                    {
-                        members.map(i => {
-                            return (
-                                <ImageListItem key={i.id}>
-                                    <CardMembers member={i}/>
-                                </ImageListItem>
-                            )
-                        })
-                    }
-                </ImageList>
+
+                {setLoader ? (<Box sx={{display: 'flex'}}>
+                    <CircularProgress/>
+                </Box>) : (
+
+                    <ImageList
+                        sx={{
+                            gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1Fr))!important',
+                        }}>
+                        {
+                            members.map(i => {
+                                return (
+                                    <ImageListItem key={i.id}>
+                                        <CardMembers member={i}/>
+                                        <Grid item container
+                                              sx={{
+                                                  backgroundColor: 'primary.light',
+                                                  display: 'flex',
+                                                  justifyContent: 'space-between',
+                                              }}
+                                        >
+                                            <Tooltip title='Editar'>
+                                                <IconButton sx={{color: 'black',}}>
+                                                    <EditIcon/>
+                                                </IconButton>
+                                            </Tooltip>
+                                            <Tooltip title='Instagram'>
+                                                <IconButton
+                                                    sx={{
+                                                        color: 'black',
+                                                    }}>
+                                                    <InstagramIcon/>
+                                                </IconButton>
+                                            </Tooltip>
+                                            <Tooltip title='Apagar'>
+                                                <IconButton
+                                                    onClick={() => deleteMember(i.id)}
+                                                    sx={{
+                                                        color: 'black',
+                                                    }}>
+                                                    <DeleteForeverIcon/>
+                                                </IconButton>
+                                            </Tooltip>
+                                        </Grid>
+                                    </ImageListItem>
+                                )
+                            })
+                        }
+                    </ImageList>
+                )};
             </Container>
         </Grid>
     )

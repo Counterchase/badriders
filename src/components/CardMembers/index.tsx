@@ -68,34 +68,7 @@ export default function CardMember({member}: CardMemberProps) {
                         </Typography>
                     </Box>
                 </Grid>
-                <Grid item container
-                      sx={{
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                      }}
-                >
-                    <Tooltip title='Editar'>
-                        <IconButton sx={{color: 'black',}}>
-                            <EditIcon/>
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title='Instagram'>
-                        <IconButton
-                            sx={{
-                                color: 'black',
-                            }}>
-                            <InstagramIcon/>
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title='Apagar'>
-                        <IconButton
-                            sx={{
-                                color: 'black',
-                            }}>
-                            <DeleteForeverIcon/>
-                        </IconButton>
-                    </Tooltip>
-                </Grid>
+                
             </Grid>
         </Container>
     )

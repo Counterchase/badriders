@@ -79,7 +79,7 @@ export default function NewMember() {
                     <TextField
                         required
                         value={dataNascimento}
-                        onChange={(e) => setAniversario(e.target.value)}
+                        onChange={(e) => setDataNascimento(e.target.value)}
                         id="aniversario"
                         name="aniversario"
                         label="Data de Nacimento"
@@ -103,7 +103,7 @@ export default function NewMember() {
                     <TextField
                         required
                         value={anoIngresso}
-                        onChange={(e) => setIngresso(e.target.value)}
+                        onChange={(e) => setAnoIngresso(e.target.value)}
                         id="ingresso"
                         name="ingresso"
                         label="Data de Ingresso"
