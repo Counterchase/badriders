@@ -33,8 +33,10 @@ export default function NewMember() {
                 //foto,
                 status
             });
+            alert('Membro Cadastrado!!');
             console.log(member);
         } catch (err) {
+            alert('Ocorreu Algo Errado!!')
             console.log(err)
         }
     };

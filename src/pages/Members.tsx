@@ -75,16 +75,16 @@ export default function Members() {
     useEffect(() => {
         const getData = async () => {
             const data = await getDocs(dataCollectionRef);
-            console.log("api log..")
-            console.log(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
             setMembers(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
         };
         getData();
-    }, [])
+    }, [loader])
 
     async function deleteMember(id) {
+        setLoader(true)
         const memberDoc = doc(db, "members", id);
         await deleteDoc(memberDoc);
+        setLoader(false)
     }
 
 
@@ -124,10 +124,10 @@ export default function Members() {
                 }}
             >
 
-                {setLoader ? (<Box sx={{display: 'flex'}}>
-                    <CircularProgress/>
-                </Box>) : (
-
+                {loader ? (<Box sx={{display: 'flex'}}>
+                        <CircularProgress/>
+                    </Box>
+                ) : (
                     <ImageList
                         sx={{
                             gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1Fr))!important',
