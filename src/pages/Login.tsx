@@ -56,6 +56,7 @@ export default function Login() {
 
 
     if (!signed) {
+        console.log("usuario nao autenticado")
         return (
             <Container component="main" maxWidth="xs"
                        sx={{
@@ -151,6 +152,7 @@ export default function Login() {
             </Container>
         )
     } else {
+        console.log("autenticado!!!")
         return <Navigate to='/'/>;
     }
 }

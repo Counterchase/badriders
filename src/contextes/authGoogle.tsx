@@ -15,21 +15,24 @@ export default function AuthGoogleProvider({children}) {
         const loadStorageAuth = () => {
             const sessionToken = sessionStorage.getItem('@AuthFirebase: token');
             const sessionUser = sessionStorage.getItem('@AuthFirebase: user');
-            sessionToken && sessionUser ? setUser(sessionUser) : ('')
+            if (sessionToken && sessionUser) {
+                setUser(sessionUser);
+            }
         };
         loadStorageAuth();
     }, [])
 
 
     const signInGoogle = () => {
-        signInWithPopup(auth, provider).then((result) => {
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential?.accessToken;
-            const user = result.user;
-            setUser(user);
-            sessionStorage.setItem("@AuthFirebase: token", token);
-            sessionStorage.setItem("@AuthFirebase: user", JSON.stringify(user));
-        })
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                const user = result.user;
+                setUser(user);
+                sessionStorage.setItem("@AuthFirebase: token", token);
+                sessionStorage.setItem("@AuthFirebase: user", JSON.stringify(user));
+            })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
@@ -41,10 +44,11 @@ export default function AuthGoogleProvider({children}) {
     function signOut() {
         sessionStorage.clear();
         setUser(null);
+        return <Navigate to={'/'}/>
     }
 
     return (
-        <AuthGoogleContext.Provider value={{signInGoogle, signed: !!user, user, signOut,}}>
+        <AuthGoogleContext.Provider value={{signInGoogle, signed: !!user, user, signOut}}>
             {children}
         </AuthGoogleContext.Provider>
     )
