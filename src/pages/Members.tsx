@@ -21,6 +21,7 @@ import firebaseApp from "../api/firebase";
 import EditIcon from "@mui/icons-material/Edit";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import NavBar from "../components/NavBar";
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -89,91 +90,93 @@ export default function Members() {
 
 
     return (
-        <Grid container spacing={2}>
-            <Grid item>
-                <Typography
+        <>
+            <Grid container spacing={2}>
+                <Grid item>
+                    <Typography
+                        sx={{
+                            fontWeight: 'bold',
+                            color: '#fff',
+                            fontSize: 'large',
+                        }}
+                    >
+                        Membros
+                    </Typography>
+                </Grid>
+                <Grid item container spacing={2}>
+                    <Grid item xs={12} md={9} lg={10}>
+                        <Search>
+                            <SearchIconWrapper>
+                                <SearchIcon/>
+                            </SearchIconWrapper>
+                            <StyledInputBase/>
+                        </Search>
+                    </Grid>
+                    <Grid item xs={8} md={3} lg={2}>
+                        <Button variant='contained' href={'/members/new-member'}>
+                            Cadastrar Membro
+                        </Button>
+                    </Grid>
+                </Grid>
+                <Container
+                    maxWidth='xl'
                     sx={{
-                        fontWeight: 'bold',
-                        color: '#fff',
-                        fontSize: 'large',
+                        mt: 2,
+                        backgroundColor: 'primary.main',
                     }}
                 >
-                    Membros
-                </Typography>
-            </Grid>
-            <Grid item container spacing={2}>
-                <Grid item xs={12} md={9} lg={10}>
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon/>
-                        </SearchIconWrapper>
-                        <StyledInputBase/>
-                    </Search>
-                </Grid>
-                <Grid item xs={8} md={3} lg={2}>
-                    <Button variant='contained' href={'/members/new-member'}>
-                        Cadastrar Membro
-                    </Button>
-                </Grid>
-            </Grid>
-            <Container
-                maxWidth='xl'
-                sx={{
-                    mt: 2,
-                    backgroundColor: 'primary.main',
-                }}
-            >
 
-                {loader ? (<Box sx={{display: 'flex'}}>
-                        <CircularProgress/>
-                    </Box>
-                ) : (
-                    <ImageList
-                        sx={{
-                            gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1Fr))!important',
-                        }}>
-                        {
-                            members.map(i => {
-                                return (
-                                    <ImageListItem key={i.id}>
-                                        <CardMembers member={i}/>
-                                        <Grid item container
-                                              sx={{
-                                                  backgroundColor: 'primary.light',
-                                                  display: 'flex',
-                                                  justifyContent: 'space-between',
-                                              }}
-                                        >
-                                            <Tooltip title='Editar'>
-                                                <IconButton sx={{color: 'black',}}>
-                                                    <EditIcon/>
-                                                </IconButton>
-                                            </Tooltip>
-                                            <Tooltip title='Instagram'>
-                                                <IconButton
-                                                    sx={{
-                                                        color: 'black',
-                                                    }}>
-                                                    <InstagramIcon/>
-                                                </IconButton>
-                                            </Tooltip>
-                                            <Tooltip title='Apagar'>
-                                                <IconButton
-                                                    onClick={() => deleteMember(i.id)}
-                                                    sx={{
-                                                        color: 'black',
-                                                    }}>
-                                                    <DeleteForeverIcon/>
-                                                </IconButton>
-                                            </Tooltip>
-                                        </Grid>
-                                    </ImageListItem>
-                                )
-                            })
-                        }
-                    </ImageList>
-                )};
-            </Container>
-        </Grid>
+                    {loader ? (<Box sx={{display: 'flex'}}>
+                            <CircularProgress/>
+                        </Box>
+                    ) : (
+                        <ImageList
+                            sx={{
+                                gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1Fr))!important',
+                            }}>
+                            {
+                                members.map(i => {
+                                    return (
+                                        <ImageListItem key={i.id}>
+                                            <CardMembers member={i}/>
+                                            <Grid item container
+                                                  sx={{
+                                                      backgroundColor: 'primary.light',
+                                                      display: 'flex',
+                                                      justifyContent: 'space-between',
+                                                  }}
+                                            >
+                                                <Tooltip title='Editar'>
+                                                    <IconButton sx={{color: 'black',}}>
+                                                        <EditIcon/>
+                                                    </IconButton>
+                                                </Tooltip>
+                                                <Tooltip title='Instagram'>
+                                                    <IconButton
+                                                        sx={{
+                                                            color: 'black',
+                                                        }}>
+                                                        <InstagramIcon/>
+                                                    </IconButton>
+                                                </Tooltip>
+                                                <Tooltip title='Apagar'>
+                                                    <IconButton
+                                                        onClick={() => deleteMember(i.id)}
+                                                        sx={{
+                                                            color: 'black',
+                                                        }}>
+                                                        <DeleteForeverIcon/>
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </Grid>
+                                        </ImageListItem>
+                                    )
+                                })
+                            }
+                        </ImageList>
+                    )};
+                </Container>
+            </Grid>
+        </>
     )
 }
